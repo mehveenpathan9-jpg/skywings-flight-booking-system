@@ -1,0 +1,231 @@
+/* Custom Styles and Animations for SkyWings Flight Booking */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap');
+
+:root {
+  --primary-color: #0284c7;
+  --primary-hover: #0369a1;
+  --accent-gold: #f59e0b;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.font-display {
+  font-family: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Glassmorphism */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+}
+
+/* Airplane Seat Map Styles */
+.airplane-fuselage {
+  background: #f8fafc;
+  border: 3px solid #e2e8f0;
+  border-radius: 120px 120px 40px 40px;
+  position: relative;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.04);
+}
+
+.cockpit-nose {
+  width: 140px;
+  height: 50px;
+  background: #e2e8f0;
+  border-radius: 100px 100px 0 0;
+  margin: 0 auto 12px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cockpit-window {
+  width: 28px;
+  height: 14px;
+  background: #38bdf8;
+  border-radius: 6px 6px 0 0;
+  margin: 0 4px;
+}
+
+.airplane-wing-left,
+.airplane-wing-right {
+  position: absolute;
+  top: 35%;
+  width: 38px;
+  height: 140px;
+  background: linear-gradient(to bottom, #cbd5e1, #94a3b8);
+  border-radius: 8px;
+}
+.airplane-wing-left {
+  left: -38px;
+  clip-path: polygon(100% 0, 0 40%, 10% 100%, 100% 90%);
+}
+.airplane-wing-right {
+  right: -38px;
+  clip-path: polygon(0 0, 100% 40%, 90% 100%, 0 90%);
+}
+
+.seat {
+  width: 34px;
+  height: 38px;
+  border-radius: 6px 6px 4px 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+}
+
+.seat.available {
+  background: #e0f2fe;
+  color: #0369a1;
+  border: 1px solid #7dd3fc;
+}
+.seat.available:hover {
+  background: #0284c7;
+  color: #ffffff;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3);
+}
+
+.seat.extra-legroom {
+  background: #fef3c7;
+  color: #b45309;
+  border: 1px solid #fcd34d;
+}
+.seat.extra-legroom:hover {
+  background: #f59e0b;
+  color: #ffffff;
+  transform: translateY(-2px) scale(1.05);
+}
+
+.seat.occupied {
+  background: #e2e8f0;
+  color: #94a3b8;
+  border: 1px solid #cbd5e1;
+  cursor: not-allowed;
+}
+
+.seat.selected {
+  background: #059669 !important;
+  color: #ffffff !important;
+  border: 1px solid #047857 !important;
+  box-shadow: 0 0 12px rgba(5, 150, 105, 0.45);
+  transform: scale(1.08);
+}
+
+.aisle-space {
+  width: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+/* Boarding Pass Styles */
+.boarding-pass-cutout {
+  position: relative;
+  background: #ffffff;
+}
+.boarding-pass-cutout::before,
+.boarding-pass-cutout::after {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+.boarding-pass-cutout::before {
+  left: -12px;
+}
+.boarding-pass-cutout::after {
+  right: -12px;
+}
+
+/* Animations */
+@keyframes floatUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: floatUp 0.35s ease-out forwards;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(2, 132, 199, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(2, 132, 199, 0.4);
+  }
+}
+
+.glow-focus:focus-within {
+  animation: pulseGlow 2s infinite;
+}
+
+/* Print Styles for E-Ticket & Boarding Pass */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #printable-ticket,
+  #printable-ticket * {
+    visibility: visible;
+  }
+  #printable-ticket {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+  }
+  .no-print {
+    display: none !important;
+  }
+}

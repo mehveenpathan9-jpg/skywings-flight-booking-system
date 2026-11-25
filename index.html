@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkyWings Airways | Global Flight Booking, Seat Map & E-Tickets</title>
+  <meta name="description" content="Book cheap flights with top airlines. Choose seats on interactive cabin maps, get instant printable boarding passes, and track live flights.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✈️</text></svg>">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              900: '#0c4a6e'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col selection:bg-sky-500 selection:text-white">
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col space-y-2 pointer-events-none max-w-sm w-full"></div>
+
+  <!-- Header / Navigation Bar -->
+  <header class="bg-white/90 backdrop-blur-md sticky top-0 z-40 border-b border-slate-200/80 transition-all no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Brand Logo -->
+        <a href="#" class="nav-link-btn flex items-center space-x-3 group" data-tab="home">
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-sky-600 to-blue-700 text-white flex items-center justify-center shadow-md shadow-sky-600/30 group-hover:scale-105 transition-transform">
+            <i data-lucide="plane-takeoff" class="w-6 h-6 stroke-[2.2]"></i>
+          </div>
+          <div>
+            <span class="font-display font-black text-2xl tracking-tight text-slate-900 group-hover:text-sky-600 transition-colors">SkyWings</span>
+            <span class="hidden sm:inline-block ml-1 px-2 py-0.5 text-[10px] font-black uppercase tracking-wider bg-sky-100 text-sky-800 rounded-full">Global</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold">
+          <button class="nav-link-btn text-slate-600 hover:text-sky-600 transition flex items-center space-x-1.5" data-tab="home">
+            <i data-lucide="plane" class="w-4 h-4"></i>
+            <span>Book Flights</span>
+          </button>
+          
+          <button class="nav-link-btn text-slate-600 hover:text-sky-600 transition flex items-center space-x-1.5 relative" data-tab="my-bookings">
+            <i data-lucide="briefcase" class="w-4 h-4"></i>
+            <span>My Trips</span>
+            <span id="nav-booking-badge" class="ml-1 px-1.5 py-0.2 text-[10px] font-bold rounded-full bg-sky-600 text-white">1</span>
+          </button>
+
+          <button class="nav-link-btn text-slate-600 hover:text-sky-600 transition flex items-center space-x-1.5" data-tab="flight-status">
+            <i data-lucide="radar" class="w-4 h-4 text-emerald-500"></i>
+            <span>Flight Radar</span>
+          </button>
+        </nav>
+
+        <!-- Right Side: Currency Selector & User Profile -->
+        <div class="hidden md:flex items-center space-x-4">
+          <!-- Currency Dropdown -->
+          <div class="relative">
+            <select id="nav-currency-select" class="bg-slate-100 hover:bg-slate-200/80 border border-slate-200 text-slate-700 text-xs font-bold rounded-xl px-3 py-2 cursor-pointer focus:outline-none focus:ring-2 focus:ring-sky-500">
+              <option value="USD">USD ($)</option>
+              <option value="EUR">EUR (€)</option>
+              <option value="GBP">GBP (£)</option>
+              <option value="INR">INR (₹)</option>
+              <option value="AED">AED (د.إ)</option>
+              <option value="JPY">JPY (¥)</option>
+            </select>
+          </div>
+
+          <!-- User Badge -->
+          <div class="flex items-center space-x-2 pl-3 border-l border-slate-200">
+            <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-sky-600 to-indigo-700 text-white flex items-center justify-center font-black text-xs shadow-sm">
+              MK
+            </div>
+            <div class="text-xs">
+              <div class="font-bold text-slate-800">Mehveen Khan</div>
+              <div class="text-[10px] text-sky-600 font-semibold">SkyMiles Silver</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile Menu Hamburger Button -->
+        <div class="md:hidden flex items-center space-x-2">
+          <button id="btn-mobile-menu" class="p-2 rounded-xl text-slate-600 hover:bg-slate-100 transition">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div id="mobile-nav-drawer" class="hidden md:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-3">
+      <button class="nav-link-btn w-full text-left py-2 text-sm font-semibold text-slate-700 flex items-center space-x-2" data-tab="home">
+        <i data-lucide="plane" class="w-4 h-4"></i>
+        <span>Book Flights</span>
+      </button>
+      <button class="nav-link-btn w-full text-left py-2 text-sm font-semibold text-slate-700 flex items-center space-x-2" data-tab="my-bookings">
+        <i data-lucide="briefcase" class="w-4 h-4"></i>
+        <span>My Bookings</span>
+      </button>
+      <button class="nav-link-btn w-full text-left py-2 text-sm font-semibold text-slate-700 flex items-center space-x-2" data-tab="flight-status">
+        <i data-lucide="radar" class="w-4 h-4"></i>
+        <span>Live Flight Radar</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Dynamic Application Container -->
+  <main id="main-content" class="flex-1"></main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-900 text-slate-400 text-xs py-14 mt-16 border-t border-slate-800 no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-8 pb-12 border-b border-slate-800">
+        
+        <!-- Brand Info -->
+        <div class="md:col-span-2 space-y-4">
+          <div class="flex items-center space-x-2.5 text-white">
+            <div class="w-8 h-8 rounded-xl bg-sky-600 text-white flex items-center justify-center font-bold">
+              <i data-lucide="plane" class="w-5 h-5"></i>
+            </div>
+            <span class="font-display font-black text-xl tracking-tight">SkyWings Airways</span>
+          </div>
+          <p class="text-xs text-slate-400 max-w-sm leading-relaxed">
+            Leading international flight booking engine. Compare prices across premier airlines worldwide with interactive seat mapping, transparent pricing, and instant barcode e-tickets.
+          </p>
+          <div class="flex items-center space-x-3 text-slate-400 text-xs font-mono">
+            <span class="px-2 py-1 bg-slate-800 rounded">IATA ACCREDITED #91-2-8491</span>
+            <span class="px-2 py-1 bg-slate-800 rounded">256-BIT SSL SECURE</span>
+          </div>
+        </div>
+
+        <!-- Links: Quick Search -->
+        <div>
+          <h5 class="text-white font-bold text-sm mb-3">Popular Routes</h5>
+          <ul class="space-y-2">
+            <li><a href="#" class="hover:text-white transition">New York to London (JFK-LHR)</a></li>
+            <li><a href="#" class="hover:text-white transition">Dubai to Singapore (DXB-SIN)</a></li>
+            <li><a href="#" class="hover:text-white transition">Tokyo to Paris (HND-CDG)</a></li>
+            <li><a href="#" class="hover:text-white transition">San Francisco to Sydney (SFO-SYD)</a></li>
+            <li><a href="#" class="hover:text-white transition">New Delhi to New York (DEL-JFK)</a></li>
+          </ul>
+        </div>
+
+        <!-- Links: Top Airlines -->
+        <div>
+          <h5 class="text-white font-bold text-sm mb-3">Partner Airlines</h5>
+          <ul class="space-y-2">
+            <li><a href="#" class="hover:text-white transition">Emirates Airlines</a></li>
+            <li><a href="#" class="hover:text-white transition">Qatar Airways</a></li>
+            <li><a href="#" class="hover:text-white transition">Singapore Airlines</a></li>
+            <li><a href="#" class="hover:text-white transition">British Airways</a></li>
+            <li><a href="#" class="hover:text-white transition">Delta Air Lines</a></li>
+          </ul>
+        </div>
+
+        <!-- Links: Help & Policies -->
+        <div>
+          <h5 class="text-white font-bold text-sm mb-3">Traveler Support</h5>
+          <ul class="space-y-2">
+            <li><a href="#" class="hover:text-white transition">Baggage Allowance Policy</a></li>
+            <li><a href="#" class="hover:text-white transition">Refunds & Cancellation Rules</a></li>
+            <li><a href="#" class="hover:text-white transition">Flight Delay Compensation</a></li>
+            <li><a href="#" class="hover:text-white transition">Special Assistance & Meals</a></li>
+            <li><a href="#" class="hover:text-white transition">24/7 Global Help Desk</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Copyright -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-slate-500 text-[11px] gap-4">
+        <div>
+          © 2026 SkyWings Airways Global Ltd. All rights reserved. Registered travel agency.
+        </div>
+        <div class="flex space-x-6">
+          <a href="#" class="hover:text-slate-400">Privacy Policy</a>
+          <a href="#" class="hover:text-slate-400">Terms of Service</a>
+          <a href="#" class="hover:text-slate-400">Cookie Preferences</a>
+          <a href="#" class="hover:text-slate-400">Security Statement</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Main Script Module -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

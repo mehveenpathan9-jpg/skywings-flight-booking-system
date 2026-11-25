@@ -1,0 +1,20 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Run Flight Booking Server (Node.js)",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}/server.js",
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "python",
+      "request": "launch",
+      "name": "Run Flight Booking Server (Python)",
+      "program": "${workspaceFolder}/server.py",
+      "console": "integratedTerminal"
+    }
+  ]
+}

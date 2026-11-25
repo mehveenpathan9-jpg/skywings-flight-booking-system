@@ -1,0 +1,21 @@
+{
+  "name": "skywings-flight-booking",
+  "version": "1.0.0",
+  "description": "Full-Stack Flight Booking Web Application with Interactive Seat Selection, REST APIs, and Digital Boarding Passes.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "python": "python server.py"
+  },
+  "keywords": [
+    "flight-booking",
+    "express",
+    "airline",
+    "seat-map",
+    "boarding-pass",
+    "flight-radar"
+  ],
+  "author": "Antigravity",
+  "license": "MIT"
+}

@@ -1,0 +1,21 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start Flight Booking Server (Node)",
+      "type": "shell",
+      "command": "node server.js",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Start Flight Booking Server (Python)",
+      "type": "shell",
+      "command": "python server.py",
+      "problemMatcher": []
+    }
+  ]
+}

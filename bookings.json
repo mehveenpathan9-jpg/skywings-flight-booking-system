@@ -1,0 +1,72 @@
+[
+  {
+    "pnr": "SKY-9X82F4",
+    "createdAt": "2026-10-26T08:00:00.000Z",
+    "status": "Confirmed",
+    "tripType": "round",
+    "passengers": [
+      {
+        "title": "Ms",
+        "firstName": "Mehveen",
+        "lastName": "Khan",
+        "passport": "MK7892104",
+        "seatOutbound": "12A",
+        "seatInbound": "14F",
+        "meal": "Vegetarian Hindu"
+      }
+    ],
+    "outboundFlight": {
+      "flightNumber": "EK-201",
+      "airline": {
+        "name": "Emirates",
+        "code": "EK"
+      },
+      "origin": {
+        "code": "JFK",
+        "city": "New York",
+        "name": "John F. Kennedy Intl"
+      },
+      "destination": {
+        "code": "DXB",
+        "city": "Dubai",
+        "name": "Dubai Intl"
+      },
+      "departureTime": "2026-10-31T08:30:00.000Z",
+      "arrivalTime": "2026-10-31T20:55:00.000Z",
+      "terminal": "T4",
+      "gate": "B22",
+      "aircraft": "Airbus A380-800"
+    },
+    "inboundFlight": {
+      "flightNumber": "EK-202",
+      "airline": {
+        "name": "Emirates",
+        "code": "EK"
+      },
+      "origin": {
+        "code": "DXB",
+        "city": "Dubai",
+        "name": "Dubai Intl"
+      },
+      "destination": {
+        "code": "JFK",
+        "city": "New York",
+        "name": "John F. Kennedy Intl"
+      },
+      "departureTime": "2026-11-07T09:00:00.000Z",
+      "arrivalTime": "2026-11-07T21:45:00.000Z",
+      "terminal": "T3",
+      "gate": "A12",
+      "aircraft": "Airbus A380-800"
+    },
+    "pricing": {
+      "currency": "USD",
+      "total": 1145,
+      "grandTotal": 1145
+    },
+    "contact": {
+      "email": "mehveen.khan@example.com",
+      "phone": "+1 (555) 019-2834"
+    }
+  }
+]
